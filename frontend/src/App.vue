@@ -1,85 +1,130 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+  <div class="app-container">
+    <div class="sidebar">
+      <h2>Login MVC</h2>
+      <ul>
+        <li><router-link to="/login">Login</router-link></li>
+        <li><router-link to="/dashboard">Dashboard</router-link></li>
+      </ul>
     </div>
-  </header>
-
-  <RouterView />
+    <div class="content">
+      <router-view />
+    </div>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<script>
+export default {
+  name: "App",
+};
+</script>
+
+<style>
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #121212; /* Dark background */
+  color: #fff;
+  height: 100vh;
+  overflow: hidden;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #1c1c1c;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar h2 {
+  color: #fff;
+  font-size: 24px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 20px 0;
+}
+
+.sidebar ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.sidebar ul li a:hover {
+  color: #00bcd4;
+}
+
+/* Content Area Styles */
+.content {
+  margin-left: 250px;
+  padding: 20px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+h1 {
+  color: #fff;
   text-align: center;
-  margin-top: 2rem;
+  margin-bottom: 20px;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 30px;
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+.card {
+  background-color: #333;
+  padding: 20px;
+  border-radius: 10px;
+  width: 250px;
+  transition: transform 0.3s;
 }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+.card:hover {
+  transform: translateY(-10px);
 }
 
-nav a:first-of-type {
-  border: 0;
+.card-title {
+  font-size: 18px;
+  color: #fff;
+  margin-bottom: 15px;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+.card-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.card-button:hover {
+  background-color: #007b8c;
 }
 </style>
