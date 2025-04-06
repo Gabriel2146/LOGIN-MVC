@@ -1,37 +1,50 @@
 <template>
     <div class="login-container">
-      <div class="login-card">
-        <h1>Login</h1>
-        <form @submit.prevent="loginUser">
-          <div class="input-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" v-model="username" placeholder="Enter username" required />
-          </div>
-          <div class="input-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" v-model="password" placeholder="Enter password" required />
-          </div>
-          <button type="submit" class="btn-submit">Login</button>
-        </form>
+      <div class="login-form">
+        <h2>Iniciar sesión</h2>
+        <input v-model="username" type="text" placeholder="Usuario" />
+        <input v-model="password" type="password" placeholder="Contraseña" />
+        <button @click="login" class="login-btn">Entrar</button>
       </div>
     </div>
   </template>
   
   <script>
+  import axios from 'axios'
+  import { useToast } from 'vue-toast-notification'
+  
   export default {
     data() {
       return {
         username: '',
         password: ''
-      };
+      }
     },
     methods: {
-      loginUser() {
-        // Handle login logic
-        console.log("Login attempted", this.username, this.password);
+      async login() {
+        try {
+          const response = await axios.post('http://127.0.0.1:8000/api/token/', {
+            username: this.username,
+            password: this.password
+          })
+          localStorage.setItem('access', response.data.access)
+          localStorage.setItem('refresh', response.data.refresh)
+  
+          // Notificación de login exitoso
+          this.$toast.success('¡Login exitoso! Redirigiendo...', { position: 'top-right' })
+          
+          // Redirigir al dashboard
+          setTimeout(() => {
+            this.$router.push('/dashboard')
+          }, 1500)
+          
+        } catch (error) {
+          // Notificación de error en login
+          this.$toast.error('Credenciales incorrectas', { position: 'top-right' })
+        }
       }
     }
-  };
+  }
   </script>
   
   <style scoped>
@@ -43,59 +56,40 @@
     background-color: #121212;
   }
   
-  .login-card {
-    background-color: #1e1e1e;
+  .login-form {
+    background-color: #fff;
     padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  h1 {
-    color: #fff;
+    border-radius: 8px;
+    width: 300px;
     text-align: center;
-    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }
   
-  .input-group {
-    margin-bottom: 20px;
+  h2 {
+    font-size: 24px;
+    color: #333;
   }
   
-  .input-group label {
-    color: #fff;
-    font-size: 14px;
-    margin-bottom: 5px;
-    display: block;
-  }
-  
-  .input-group input {
+  input {
     width: 100%;
     padding: 10px;
-    background-color: #333;
-    border: 1px solid #444;
-    border-radius: 5px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
     color: white;
-  }
-  
-  .input-group input:focus {
-    outline: none;
-    border-color: #00bcd4;
-  }
-  
-  .btn-submit {
-    width: 100%;
-    padding: 10px;
-    background-color: #00bcd4;
     border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 16px;
+    border-radius: 4px;
     cursor: pointer;
   }
   
-  .btn-submit:hover {
-    background-color: #007b8c;
+  button:hover {
+    background-color: #0056b3;
   }
   </style>
   
