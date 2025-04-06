@@ -3,12 +3,16 @@ import Login from '../components/Login.vue'
 import Dashboard from '../components/Dashboard.vue'
 
 const routes = [
-  { path: '/', name: 'Login', component: Login },
+  {
+    path: '/',
+    name: 'Login',
+    component: Login
+  },
   {
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true } // 👈 Esto es clave
   }
 ]
 
@@ -17,12 +21,15 @@ const router = createRouter({
   routes
 })
 
+// 👇 Aquí validamos si el usuario tiene el token
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('access')
+
   if (to.meta.requiresAuth && !token) {
-    next('/')
+    alert('⚠️ Debes iniciar sesión primero.')
+    next({ name: 'Login' }) // redirige al login
   } else {
-    next()
+    next() // permite navegación
   }
 })
 

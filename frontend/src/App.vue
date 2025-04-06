@@ -3,8 +3,6 @@
     <div class="sidebar">
       <h2>Login MVC</h2>
       <ul>
-        <li><router-link to="/login">Login</router-link></li>
-        <li><router-link to="/dashboard">Dashboard</router-link></li>
       </ul>
     </div>
     <div class="content">
