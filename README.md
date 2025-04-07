@@ -115,14 +115,13 @@ npm run dev
 
 ## 📸 Vista previa
 
-![Vista previa del dashboard](https://via.placeholder.com/600x300.png?text=Dashboard+CRUD+Vue+Django)
+![image](https://github.com/user-attachments/assets/35313d37-bc50-4599-9147-8e80bb719e7b)
 
 ---
 
 ## 🙌 Autor
 
-Proyecto creado por [Tu Nombre] – Fullstack Developer  
-GitHub: [https://github.com/tuusuario](https://github.com/tuusuario)
+Proyecto creado por Gabriel Padilla 
 
 ---
 
